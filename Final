@@ -1,0 +1,1431 @@
+import sys
+import pygame
+import os
+import random
+
+# Global Variables
+BLACK = (0, 0, 0)
+WHITE = (255, 255, 255)
+GREEN = (112, 200, 160)
+GRASS_GREEN = (56, 144, 48)
+RED = (255, 64, 34)
+WIN_W = 32 * 20
+WIN_H = 32 * 20
+pygame.init()
+RedUp = pygame.image.load("Movement/RedUp.png")
+RedUpRight = pygame.image.load("Movement/RedUpRight.png")
+RedUpLeft = pygame.image.load("Movement/RedUpLeft.png")
+RedRight = pygame.image.load("Movement/RedRight.png")
+RedRightRight = pygame.image.load("Movement/RedRightRight.png")
+RedRightLeft = pygame.image.load("Movement/RedRightLeft.png")
+RedDown = pygame.image.load("Movement/RedDown.png")
+RedDownRight = pygame.image.load("Movement/RedDownRight.png")
+RedDownLeft = pygame.image.load("Movement/RedDownLeft.png")
+RedLeft = pygame.image.load("Movement/RedLeft.png")
+RedLeftRight = pygame.image.load("Movement/RedLeftRight.png")
+RedLeftLeft = pygame.image.load("Movement/RedLeftLeft.png")
+
+RUp = [RedUp, RedUp, RedUp, RedUp, RedUp, RedUp, RedUpLeft, RedUpLeft, RedUpLeft, RedUpLeft, RedUpLeft, RedUpLeft,
+       RedUp, RedUp, RedUp, RedUp, RedUp, RedUp, RedUpRight, RedUpRight, RedUpRight, RedUpRight, RedUpRight, RedUpRight]
+RLeft = [RedLeft, RedLeft, RedLeft, RedLeft, RedLeft, RedLeft, RedLeftRight, RedLeftRight, RedLeftRight, RedLeftRight,
+         RedLeftRight, RedLeftRight, RedLeft, RedLeft, RedLeft, RedLeft, RedLeft, RedLeft, RedLeftLeft, RedLeftLeft,
+         RedLeftLeft, RedLeftLeft, RedLeftLeft, RedLeftLeft]
+RDown = [RedDown, RedDown, RedDown, RedDown, RedDown, RedDown, RedDownLeft, RedDownLeft, RedDownLeft, RedDownLeft,
+         RedDownLeft, RedDownLeft, RedDown, RedDown, RedDown, RedDown, RedDown, RedDown, RedDownRight, RedDownRight,
+         RedDownRight, RedDownRight, RedDownRight, RedDownRight]
+RRight = [RedRight, RedRight, RedRight, RedRight, RedRight, RedRight, RedRightRight, RedRightRight, RedRightRight,
+          RedRightRight, RedRightRight, RedRightRight, RedRight, RedRight, RedRight, RedRight, RedRight, RedRight,
+          RedRightLeft, RedRightLeft, RedRightLeft, RedRightLeft, RedRightLeft, RedRightLeft]
+
+
+class Arcanine:
+    def __init__(self):
+        self.image = pygame.image.load("Pokemon/arcanine.png")
+        self.image = pygame.transform.scale(self.image, (200, 200))
+        self.level = "Lv.72"
+        self.name = "Arcanine"
+        self.move1name = "Roar"
+        self.move2name = "Swift"
+        self.move3name = "Flamethrower"
+        self.move4name = "Fire Spin"
+
+    def move_1(self):
+        return 15
+
+    def move_2(self):
+        return 20
+
+    def move_3(self):
+        return 45
+
+    def move_4(self):
+        return 20
+class Gyarados:
+    def __init__(self):
+        self.image = pygame.image.load("Pokemon/Gyarados.png")
+        self.image = pygame.transform.scale(self.image, (200, 200))
+        self.level = "Lv.73"
+        self.name = "Gyarados"
+        self.move1name = "Hyrdo Pump"
+        self.move2name = "Dragon Dance"
+        self.move3name = "Earthquake"
+        self.move4name = "Hyper Beam"
+
+    def move_1(self):
+        return 25
+
+    def move_2(self):
+        return 20
+
+    def move_3(self):
+        return 30
+
+    def move_4(self):
+        return 45
+class Exeggutor:
+    def __init__(self):
+        self.image = pygame.image.load("Pokemon/exeggutor.png")
+        self.image = pygame.transform.scale(self.image, (200, 200))
+        self.level = "Lv.73"
+        self.name = "Exeggutor"
+        self.move1name = "Giga Drain"
+        self.move2name = "Psychic"
+        self.move3name = "Vine Whip"
+        self.move4name = "Light Screen"
+
+    def move_1(self):
+        return 20
+
+    def move_2(self):
+        return 25
+
+    def move_3(self):
+        return 20
+
+    def move_4(self):
+        return 10
+class Tyranitar:
+    def __init__(self):
+        self.image = pygame.image.load("Pokemon/tyranitar.png")
+        self.image = pygame.transform.scale(self.image, (200, 200))
+        self.level = "Lv.72"
+        self.name = "Tyranitar"
+        self.move1name = "Crunch"
+        self.move2name = "Earthquake"
+        self.move3name = "Thunderbolt"
+        self.move4name = "Aerial Ace"
+
+    def move_1(self):
+        return 15
+
+    def move_2(self):
+        return 30
+
+    def move_3(self):
+        return 30
+
+    def move_4(self):
+        return 25
+class Alakazam:
+    def __init__(self):
+        self.image = pygame.image.load("Pokemon/alakazam.png")
+        self.image = pygame.transform.scale(self.image, (200, 200))
+        self.level = "Lv.73"
+        self.name = "Alakazam"
+        self.move1name = "Psychic"
+        self.move2name = "Shadow Ball"
+        self.move3name = "Calm Mind"
+        self.move4name = "Reflect"
+
+    def move_1(self):
+        return random.randrange(25, 30)
+
+    def move_2(self):
+        return 25
+
+    def move_3(self):
+        return 20
+
+    def move_4(self):
+        return 20
+class Heracross:
+    def __init__(self):
+        self.image = pygame.image.load("Pokemon/heracross.png")
+        self.image = pygame.transform.scale(self.image, (200, 200))
+        self.level = "Lv.72"
+        self.name = "Heracross"
+        self.move1name = "Megahorn"
+        self.move2name = "Earthquake"
+        self.move3name = "Counter"
+        self.move4name = "Rock Tomb"
+
+    def move_1(self):
+        return 35
+
+    def move_2(self):
+        return 30
+
+    def move_3(self):
+        return 20
+
+    def move_4(self):
+        return 15
+class Pikachu:
+    def __init__(self):
+        self.image = pygame.image.load("Pokemon/Pikachu.png")
+        self.image = pygame.transform.scale(self.image, (200, 200))
+        self.level = "Lv.88"
+        self.name = "Pikachu"
+        self.move1name = "Volt Tackle"
+        self.move2name = "Iron Tail"
+        self.move3name = "Quick Attack"
+        self.move4name = "Thunderbolt"
+
+    def move_1(self):
+        return random.randrange(15, 30)
+
+    def move_2(self):
+        return 25
+
+    def move_3(self):
+        return 20
+
+    def move_4(self):
+        return 30
+class Lapras:
+    def __init__(self):
+        self.image = pygame.image.load("Pokemon/lapras.png")
+        self.image = pygame.transform.scale(self.image, (200, 200))
+        self.level = "Lv.80"
+        self.name = "Lapras"
+        self.move1name = "Body Slam"
+        self.move2name = "Brine"
+        self.move3name = "Blizzard"
+        self.move4name = "Psychic"
+
+    def move_1(self):
+        return 25
+
+    def move_2(self):
+        return 25
+
+    def move_3(self):
+        return 35
+
+    def move_4(self):
+        return 30
+class Snorlax:
+    def __init__(self):
+        self.image = pygame.image.load("Pokemon/snorlax.png")
+        self.image = pygame.transform.scale(self.image, (200, 200))
+        self.level = "Lv.82"
+        self.name = "Snorlax"
+        self.move1name = "Shadow Ball"
+        self.move2name = "Crunch"
+        self.move3name = "Blizzard"
+        self.move4name = "Giga Impact"
+
+    def move_1(self):
+        return 20
+
+    def move_2(self):
+        return 15
+
+    def move_3(self):
+        return 35
+
+    def move_4(self):
+        return 25
+class Venusaur:
+    def __init__(self):
+        self.image = pygame.image.load("Pokemon/venusaur.png")
+        self.image = pygame.transform.scale(self.image, (200, 200))
+        self.level = "Lv.84"
+        self.name = "Venusaur"
+        self.move1name = "Frenzy Plant"
+        self.move2name = "Giga Drain"
+        self.move3name = "Sludge Bomb"
+        self.move4name = "Vine Whip"
+
+    def move_1(self):
+        return 25
+
+    def move_2(self):
+        return 20
+
+    def move_3(self):
+        return 25
+
+    def move_4(self):
+        return 20
+class Charizard:
+    def __init__(self):
+        self.image = pygame.image.load("Pokemon/charizard.png")
+        self.image = pygame.transform.scale(self.image, (200, 200))
+        self.level = "Lv.84"
+        self.name = "Charizard"
+        self.move1name = "Blast Burn"
+        self.move2name = "Flare Blitz"
+        self.move3name = "Air Slash"
+        self.move4name = "Dragon Pulse"
+
+    def move_1(self):
+        return 40
+
+    def move_2(self):
+        return 20
+
+    def move_3(self):
+        return 15
+
+    def move_4(self):
+        return 20
+class Blastoise:
+    def __init__(self):
+        self.image = pygame.image.load("Pokemon/blastoise.png")
+        self.image = pygame.transform.scale(self.image, (200, 200))
+        self.level = "Lv.84"
+        self.name = "Blastoise"
+        self.move1name = "Hydro Cannon"
+        self.move2name = "Blizzard"
+        self.move3name = "Flash Cannon"
+        self.move4name = "Focus Blast"
+
+    def move_1(self):
+        return 30
+
+    def move_2(self):
+        return 35
+
+    def move_3(self):
+        return 15
+
+    def move_4(self):
+        return 20
+
+
+class Camera(object):
+    def __init__(self, total_width, total_height):
+        self.state = pygame.Rect(0, 0, total_width, total_height)
+
+    def apply(self, target):
+        return target.rect.move(self.state.topleft)
+
+    def update(self, target_rect):
+        x = -target_rect.x + WIN_W / 2
+        y = -target_rect.y + WIN_H / 2
+
+        # Stop scrolling at left edge
+        if x > 0:
+            x = 0
+
+        # Stop scrolling at the right edge
+        elif x < -(self.state.width - WIN_W):
+            x = -(self.state.width - WIN_W)
+
+        # Stop scrolling at top
+        if y > 0:
+            y = 0
+
+        # Stop scrolling at the bottom
+        elif y < -(self.state.height - WIN_H):
+            y = -(self.state.height - WIN_H)
+
+        self.state = pygame.Rect(x, y, self.state.width, self.state.height)
+
+
+class Hero(pygame.sprite.Sprite):
+    def __init__(self):
+        pygame.sprite.Sprite.__init__(self)
+        self.counter = 0
+        self.speed = 2
+        self.image = pygame.image.load("Movement/RedDown.png").convert_alpha()
+        self.image = pygame.transform.scale(self.image, (36, 44))
+        self.rect = self.image.get_rect()
+        self.body_rect = self.image.get_rect()
+        self.rect.x = 2 * 32
+        self.rect.y = 21 * 32
+        self.body_rect.x = 5 * 8
+        self.body_rect.y = 5 * 8
+
+    def collide(self, x, y, platforms):
+        for p in platforms:
+            if pygame.sprite.collide_rect(self, p):
+                if self.rect.right > p.rect.left:
+                    self.rect.right = p.rect.left
+                elif self.rect.left < p.rect.right:
+                    self.rect.left = p.rect.right
+                elif self.rect.bottom > p.rect.top:
+                    self.rect.bottom = p.rect.top
+                elif self.rect.top < p.rect.bottom:
+                    self.rect.top = p.rect.bottom
+
+    def update(self, platform_group, character1):
+        # Movement
+        key = pygame.key.get_pressed()
+        # Movement and barriers
+        if key[pygame.K_w] or key[pygame.K_UP]:
+            if key[pygame.K_LSHIFT or pygame.K_RSHIFT]:
+                self.rect.y -= self.speed
+                self.person_collide(platform_group, character1)
+                self.counter = (self.counter + 1) % len(RUp)
+                self.image = RUp[self.counter]
+                self.image = pygame.transform.scale(self.image, (32, 38))
+                for p in platform_group:
+                    if pygame.sprite.collide_rect(self, p):
+                        if self.rect.top < p.rect.bottom:
+                            self.rect.top = p.rect.bottom
+            else:
+                self.rect.y -= self.speed
+                self.person_collide(platform_group, character1)
+                self.counter = (self.counter + 1) % len(RUp)
+                self.image = RUp[self.counter]
+                self.image = pygame.transform.scale(self.image, (32, 38))
+                for p in platform_group:
+                    if pygame.sprite.collide_rect(self, p):
+                        if self.rect.top < p.rect.bottom:
+                            self.rect.top = p.rect.bottom
+        if key[pygame.K_s] or key[pygame.K_DOWN]:
+            if key[pygame.K_LSHIFT or pygame.K_RSHIFT]:
+                self.rect.y += self.speed
+                self.person_collide(platform_group, character1)
+                self.counter = (self.counter + 1) % len(RDown)
+                self.image = RDown[self.counter]
+                self.image = pygame.transform.scale(self.image, (32, 38))
+                for p in platform_group:
+                    if pygame.sprite.collide_rect(self, p):
+                        if self.rect.bottom > p.rect.top:
+                            self.rect.bottom = p.rect.top
+            else:
+                self.rect.y += self.speed
+                self.person_collide(platform_group, character1)
+                self.counter = (self.counter + 1) % len(RDown)
+                self.image = RDown[self.counter]
+                self.image = pygame.transform.scale(self.image, (32, 38))
+                for p in platform_group:
+                    if pygame.sprite.collide_rect(self, p):
+                        if self.rect.bottom > p.rect.top:
+                            self.rect.bottom = p.rect.top
+        if key[pygame.K_a] or key[pygame.K_LEFT]:
+            if key[pygame.K_LSHIFT or pygame.K_RSHIFT]:
+                self.rect.x -= self.speed
+                self.person_collide(platform_group, character1)
+                self.counter = (self.counter + 1) % len(RLeft)
+                self.image = RLeft[self.counter]
+                self.image = pygame.transform.scale(self.image, (44, 47))
+                for p in platform_group:
+                    if pygame.sprite.collide_rect(self, p):
+                        if self.rect.left < p.rect.right:
+                            self.rect.left = p.rect.right
+            else:
+
+                self.rect.x -= self.speed
+                self.person_collide(platform_group, character1)
+                self.counter = (self.counter + 1) % len(RLeft)
+                self.image = RLeft[self.counter]
+                self.image = pygame.transform.scale(self.image, (44, 47))
+                for p in platform_group:
+                    if pygame.sprite.collide_rect(self, p):
+                        if self.rect.left < p.rect.right:
+                            self.rect.left = p.rect.right
+        if key[pygame.K_d] or key[pygame.K_RIGHT]:
+            if key[pygame.K_LSHIFT or pygame.K_RSHIFT]:
+                self.rect.x += self.speed
+                self.person_collide(platform_group, character1)
+                self.counter = (self.counter + 1) % len(RRight)
+                self.image = RRight[self.counter]
+                self.image = pygame.transform.scale(self.image, (36, 42))
+                for p in platform_group:
+                    if pygame.sprite.collide_rect(self, p):
+                        if self.rect.right > p.rect.left:
+                            self.rect.right = p.rect.left
+            else:
+                self.rect.x += self.speed
+                self.person_collide(platform_group, character1)
+                self.counter = (self.counter + 1) % len(RRight)
+                self.image = RRight[self.counter]
+                self.image = pygame.transform.scale(self.image, (36, 42))
+                for p in platform_group:
+                    if pygame.sprite.collide_rect(self, p):
+                        if self.rect.right > p.rect.left:
+                            self.rect.right = p.rect.left
+
+    def person_collide(self, platform_group, character1):
+        for p in platform_group:
+            if pygame.sprite.collide_rect(self, p) and p.col == "1":
+                character2 = Arcanine()
+                battle(character1, character2)
+            if pygame.sprite.collide_rect(self, p) and p.col == "2":
+                character2 = Gyarados()
+                battle(character1, character2)
+            if pygame.sprite.collide_rect(self, p) and p.col == "3":
+                character2 = Exeggutor()
+                battle(character1, character2)
+            if pygame.sprite.collide_rect(self, p) and p.col == "4":
+                character2 = Tyranitar()
+                battle(character1, character2)
+            if pygame.sprite.collide_rect(self, p) and p.col == "5":
+                character2 = Alakazam()
+                battle(character1, character2)
+
+
+# Function#
+class Platform(pygame.sprite.Sprite):
+    def __init__(self, x, y, col):
+        pygame.sprite.Sprite.__init__(self)
+        self.image = pygame.Surface((32, 32))
+        self.image.convert()
+        if col == "P":
+            self.image = pygame.image.load("Pictures/Fences.png").convert_alpha()
+            self.image = pygame.transform.scale(self.image, (32, 32))
+        if col == "R":
+            self.image = pygame.image.load("Pictures/rock.png").convert_alpha()
+            self.image = pygame.transform.scale(self.image, (32, 32))
+        if col == "W":
+            self.image = pygame.image.load("Pictures/Water.png").convert_alpha()
+            self.image = pygame.transform.scale(self.image, (32, 32))
+        if col == "T":
+            self.image = pygame.image.load("Pictures/Tall_Grass.png").convert_alpha()
+            self.image = pygame.transform.scale(self.image, (32, 32))
+        if col == "Q":
+            self.image = pygame.image.load("Pictures/Corner1.png").convert_alpha()
+            self.image = pygame.transform.scale(self.image, (32, 32))
+        if col == "Z":
+            self.image = pygame.image.load("Pictures/Corner2.png").convert_alpha()
+            self.image = pygame.transform.scale(self.image, (32, 32))
+        if col == "E":
+            self.image = pygame.image.load("Pictures/Corner4.png").convert_alpha()
+            self.image = pygame.transform.scale(self.image, (32, 32))
+        if col == "Y":
+            self.image = pygame.image.load("Pictures/Corner3.png").convert_alpha()
+            self.image = pygame.transform.scale(self.image, (32, 32))
+        if col == "U":
+            self.image = pygame.image.load("Pictures/Top.png").convert_alpha()
+            self.image = pygame.transform.scale(self.image, (32, 32))
+        if col == "K":
+            self.image = pygame.image.load("Pictures/Right.png").convert_alpha()
+            self.image = pygame.transform.scale(self.image, (32, 32))
+        if col == "X":
+            self.image = pygame.image.load("Pictures/Left.png").convert_alpha()
+            self.image = pygame.transform.scale(self.image, (32, 32))
+        if col == "B":
+            self.image = pygame.image.load("Pictures/Bottom.png").convert_alpha()
+            self.image = pygame.transform.scale(self.image, (32, 32))
+        if col == "F":
+            self.image = pygame.image.load("Pictures/Flowers.png").convert()
+            self.image = pygame.transform.scale(self.image, (32, 32))
+        if col == " ":
+            self.image = pygame.image.load("Pictures/background.png").convert()
+            self.image = pygame.transform.scale(self.image, (32, 32))
+        if col == "1":
+            self.image = pygame.image.load("Trainers/Blue1.png").convert_alpha()
+            self.image = pygame.transform.scale(self.image, (32, 32))
+        if col == "2":
+            self.image = pygame.image.load("Trainers/Trainer2.png").convert_alpha()
+            self.image = pygame.transform.scale(self.image, (32, 32))
+        if col == "3":
+            self.image = pygame.image.load("Trainers/Trainer1.png").convert_alpha()
+            self.image = pygame.transform.scale(self.image, (32, 32))
+        if col == "4":
+            self.image = pygame.image.load("Trainers/Trainer4.png").convert_alpha()
+            self.image = pygame.transform.scale(self.image, (32, 32))
+        if col == "5":
+            self.image = pygame.image.load("Trainers/Trainer3.png").convert_alpha()
+            self.image = pygame.transform.scale(self.image, (32, 32))
+        self.col = col
+        self.rect = pygame.Rect(x, y, 32, 32)
+
+
+def battle(character1, character2):
+    global p2d, p1d, winnertext, mousepos
+    play = True
+    screen = pygame.display.set_mode((WIN_W, WIN_H), pygame.SRCALPHA)
+    hit = pygame.mixer.Sound("music/Hit.ogg.ogg")
+    hit.set_volume(.35)
+    music_battle = pygame.mixer.Sound("music/fight.ogg.ogg")
+    music_battle.set_volume(.06)
+    music_battle.play(-1)
+
+    font = pygame.font.Font(None, 50)
+    smallfont = pygame.font.Font(None, 30)
+    screenimage = pygame.image.load("battle/Battle.png")
+    screenimage = pygame.transform.scale(screenimage, (WIN_W, WIN_H))
+    clock = pygame.time.Clock()
+    picktext = font.render("Pick Your Pokemon", 1, BLACK)
+    picktextpos = picktext.get_rect()
+    picktextpos.centerx = int(WIN_W / 2)
+    fps = 90
+    character1image = character1.image
+    character1imagepos = character1image.get_rect()
+    character1imagepos.x = 70
+    character1imagepos.y = 308
+    character2image = character2.image
+    character2imagepos = character2image.get_rect()
+    character2imagepos.x = 410
+    character2imagepos.y = 110
+    character1healthamount = 120
+    character2healthamount = 120
+    character1health = pygame.Surface((character1healthamount, 14))
+    character1healthrect = character1health.get_rect()
+    character1healthrect.x = 495
+    character1healthrect.y = 390
+    character1health.fill(RED)
+    enemyhealth = pygame.Surface((character2healthamount, 14))
+    enemyhealthrect = enemyhealth.get_rect()
+    enemyhealthrect.x = 128
+    enemyhealthrect.y = 137
+    enemyhealth.fill(RED)
+    move1text = font.render(character1.move1name, 1, BLACK)
+    move1textpos = move1text.get_rect()
+    move1textpos.x = 50
+    move1textpos.y = 525
+    move2text = font.render(character1.move2name, 1, BLACK)
+    move2textpos = move2text.get_rect()
+    move2textpos.x = 375
+    move2textpos.y = 575
+    move3text = font.render(character1.move3name, 1, BLACK)
+    move3textpos = move3text.get_rect()
+    move3textpos.x = 50
+    move3textpos.y = 575
+    move4text = font.render(character1.move4name, 1, BLACK)
+    move4textpos = move1text.get_rect()
+    move4textpos.x = 375
+    move4textpos.y = 525
+    p1gofirst = True
+    blitname1 = smallfont.render("nothing", 1, BLACK)
+    blitnamepos1 = blitname1.get_rect()
+    blitnamepos1.x = 100
+    blitnamepos1.y = 535
+    blitname2 = smallfont.render("nothing", 1, BLACK)
+    blitnamepos2 = blitname2.get_rect()
+    blitnamepos2.x = 100
+    blitnamepos2.y = 535
+    character1level = smallfont.render(character1.level, 1, BLACK)
+    character1levelpos = character1level.get_rect()
+    character1levelpos.x = 575
+    character1levelpos.y = 350
+    character2level = smallfont.render(character1.level, 1, BLACK)
+    character2levelpos = character2level.get_rect()
+    character2levelpos.x = 137
+    character2levelpos.y = 92
+    character1nameplate = smallfont.render(character1.name, 1, BLACK)
+    character1nameplatepos = character1nameplate.get_rect()
+    character1nameplatepos.x = 400
+    character1nameplatepos.y = 350
+    character2nameplate = smallfont.render(character2.name, 1, BLACK)
+    character2nameplatepos = character2nameplate.get_rect()
+    character2nameplatepos.x = 17
+    character2nameplatepos.y = 92
+    lose = smallfont.render("you lose...", 1, BLACK)
+    losepos = lose.get_rect()
+    losepos.x = 100
+    losepos.y = 535
+    win = smallfont.render("you win!!!!", 1, BLACK)
+    winpos = win.get_rect()
+    winpos.x = 100
+    winpos.y = 535
+    p1damage = 0
+    p2damage = 0
+    p1go = False
+    p2go = False
+    blitmove1 = font.render("nothing", 1, BLACK)
+    blitmovepos1 = blitmove1.get_rect()
+    blitmovepos1.x = blitnamepos1.x
+    blitmovepos1.y = blitnamepos1.y
+    blitmove2 = font.render("nothing", 1, BLACK)
+    blitmovepos2 = blitmove2.get_rect()
+    blitmovepos2.x = blitnamepos2.x
+    blitmovepos2.y = blitnamepos2.y
+    while play:
+        character2move = random.randrange(1, 5)
+        mousepos = pygame.mouse.get_pos()
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                sys.exit()
+            elif event.type == pygame.KEYDOWN:
+                if event.key == pygame.K_ESCAPE:
+                    pygame.quit()
+                    sys.exit()
+        screen.blit(screenimage, (0, 0))
+        if p1gofirst == True:
+            if pygame.mouse.get_pressed()[0] == 1 and mousepos[0] > move1textpos.x and mousepos[
+                0] < move1textpos.x + move1textpos.width and mousepos[1] > move1textpos.y and mousepos[
+                1] < move1textpos.y + move1textpos.height:
+                p2damage = character1.move_1()
+                blitname1 = smallfont.render(character1.name + " used " + character1.move1name, 1, BLACK)
+                p1go = True
+                p2d = p2damage * 150 * .01
+                blitmove1 = smallfont.render(("It did " + str(p2damage) + " damage"), 1, BLACK)
+
+                if character2move == 1:
+                    p1damage = character2.move_1()
+                    p1d = p1damage * 150 * .01
+                    blitmove2 = smallfont.render(("It did " + str(p1damage) + " damage"), 1, BLACK)
+                    blitname2 = smallfont.render(character2.name + " used " + character2.move1name, 1, BLACK)
+                    p2go = True
+
+                if character2move == 2:
+                    p1damage = character2.move_2()
+                    p1d = p1damage * 150 * .01
+                    blitmove2 = smallfont.render(("It did " + str(p1damage) + " damage"), 1, BLACK)
+                    blitname2 = smallfont.render(character2.name + " used " + character2.move2name, 1, BLACK)
+                    p2go = True
+
+                if character2move == 3:
+                    p1damage = character2.move_3()
+                    p1d = p1damage * 150 * .01
+                    blitmove2 = smallfont.render(("It did " + str(p1damage) + " damage"), 1, BLACK)
+                    blitname2 = smallfont.render(character2.name + " used " + character2.move3name, 1, BLACK)
+                    p2go = True
+
+                if character2move == 4:
+                    p1damage = character2.move_4()
+                    p1d = p1damage * 150 * .01
+                    blitmove2 = smallfont.render(("It did " + str(p1damage) + " damage"), 1, BLACK)
+                    blitname2 = smallfont.render(character2.name + " used " + character2.move4name, 1, BLACK)
+                    p2go = True
+
+                screen.fill(WHITE)
+                screen.blit(screenimage, (0, 0))
+                screen.blit(character1image, character1imagepos)
+                screen.blit(character2image, character2imagepos)
+                screen.blit(enemyhealth, enemyhealthrect)
+                screen.blit(character1health, character1healthrect)
+                screen.blit(blitname1, blitnamepos1)
+                screen.blit(character1nameplate, character1nameplatepos)
+                screen.blit(character2nameplate, character2nameplatepos)
+                screen.blit(character1level, character1levelpos)
+                screen.blit(character2level, character2levelpos)
+                pygame.display.flip()
+                pygame.time.wait(2000)
+                screen.fill(WHITE)
+                screen.blit(screenimage, (0, 0))
+                screen.blit(character1image, character1imagepos)
+                screen.blit(character2image, character2imagepos)
+                screen.blit(enemyhealth, enemyhealthrect)
+                screen.blit(character1health, character1healthrect)
+                screen.blit(blitmove1, blitmovepos1)
+                hit.play(0)
+                screen.blit(character1nameplate, character1nameplatepos)
+                screen.blit(character2nameplate, character2nameplatepos)
+                screen.blit(character1level, character1levelpos)
+                screen.blit(character2level, character2levelpos)
+                pygame.display.flip()
+                pygame.time.wait(2000)
+                # player 2 blits
+                screen.fill(WHITE)
+
+                screen.blit(screenimage, (0, 0))
+                screen.blit(character1image, character1imagepos)
+                screen.blit(character2image, character2imagepos)
+                screen.blit(blitname2, blitnamepos2)
+                screen.blit(enemyhealth, enemyhealthrect)
+                screen.blit(character1health, character1healthrect)
+                screen.blit(character1nameplate, character1nameplatepos)
+                screen.blit(character2nameplate, character2nameplatepos)
+                screen.blit(character1level, character1levelpos)
+                screen.blit(character2level, character2levelpos)
+                pygame.display.flip()
+                pygame.time.wait(2000)
+                screen.fill(WHITE)
+
+                screen.blit(screenimage, (0, 0))
+                screen.blit(character1image, character1imagepos)
+                screen.blit(character2image, character2imagepos)
+                screen.blit(enemyhealth, enemyhealthrect)
+                screen.blit(character1health, character1healthrect)
+                screen.blit(blitmove2, blitmovepos2)
+                hit.play(0)
+                screen.blit(character1image, character1imagepos)
+                screen.blit(character1nameplate, character1nameplatepos)
+                screen.blit(character2nameplate, character2nameplatepos)
+                screen.blit(character1level, character1levelpos)
+                screen.blit(character2level, character2levelpos)
+                pygame.display.flip()
+                pygame.time.wait(2000)
+            elif pygame.mouse.get_pressed()[0] == 1 and mousepos[0] > move2textpos.x and mousepos[
+                0] < move2textpos.x + move2textpos.width and mousepos[1] > move2textpos.y and mousepos[
+                1] < move2textpos.y + move2textpos.height:
+                p2damage = character1.move_2()
+                blitname1 = smallfont.render(character1.name + " used " + character1.move2name, 1, BLACK)
+                p1go = True
+                p2d = p2damage * 150 * .01
+
+                blitmove1 = smallfont.render(("It did " + str(p2damage) + " damage"), 1, BLACK)
+
+                if character2move == 1:
+                    p1d = p1damage * 150 * .01
+                    p1damage = character2.move_1()
+                    blitmove2 = smallfont.render(("It did " + str(p1damage) + " damage"), 1, BLACK)
+                    blitname2 = smallfont.render(character2.name + " used " + character2.move1name, 1, BLACK)
+                    p2go = True
+
+                if character2move == 2:
+                    p1damage = character2.move_2()
+                    p1d = p1damage * 150 * .01
+                    blitmove2 = smallfont.render(("It did " + str(p1damage) + " damage"), 1, BLACK)
+                    blitname2 = smallfont.render(character2.name + " used " + character2.move2name, 1, BLACK)
+                    p2go = True
+
+                if character2move == 3:
+                    p1damage = character2.move_3()
+                    p1d = p1damage * 150 * .01
+                    blitmove2 = smallfont.render(("It did " + str(p1damage) + " damage"), 1, BLACK)
+                    blitname2 = smallfont.render(character2.name + " used " + character2.move3name, 1, BLACK)
+                    p2go = True
+
+                if character2move == 4:
+                    p1damage = character2.move_4()
+                    p1d = p1damage * 150 * .01
+                    blitmove2 = smallfont.render(("It did " + str(p1damage) + " damage"), 1, BLACK)
+                    blitname2 = smallfont.render(character2.name + " used " + character2.move4name, 1, BLACK)
+                    p2go = True
+
+                screen.fill(WHITE)
+                screen.blit(screenimage, (0, 0))
+                screen.blit(character1image, character1imagepos)
+                screen.blit(character2image, character2imagepos)
+                screen.blit(enemyhealth, enemyhealthrect)
+                screen.blit(character1health, character1healthrect)
+                screen.blit(blitname1, blitnamepos1)
+                screen.blit(character1nameplate, character1nameplatepos)
+                screen.blit(character2nameplate, character2nameplatepos)
+                screen.blit(character1level, character1levelpos)
+                screen.blit(character2level, character2levelpos)
+                pygame.display.flip()
+                pygame.time.wait(2000)
+                screen.fill(WHITE)
+                screen.blit(screenimage, (0, 0))
+                screen.blit(character1image, character1imagepos)
+                screen.blit(character2image, character2imagepos)
+                screen.blit(enemyhealth, enemyhealthrect)
+                screen.blit(character1health, character1healthrect)
+                screen.blit(blitmove1, blitmovepos1)
+                hit.play(0)
+                screen.blit(character1nameplate, character1nameplatepos)
+                screen.blit(character2nameplate, character2nameplatepos)
+                screen.blit(character1level, character1levelpos)
+                screen.blit(character2level, character2levelpos)
+                pygame.display.flip()
+                pygame.time.wait(2000)
+                # player 2 blits
+                screen.fill(WHITE)
+
+                screen.blit(screenimage, (0, 0))
+                screen.blit(character1image, character1imagepos)
+                screen.blit(character2image, character2imagepos)
+                screen.blit(blitname2, blitnamepos2)
+                screen.blit(enemyhealth, enemyhealthrect)
+                screen.blit(character1health, character1healthrect)
+                screen.blit(character1nameplate, character1nameplatepos)
+                screen.blit(character2nameplate, character2nameplatepos)
+                screen.blit(character1level, character1levelpos)
+                screen.blit(character2level, character2levelpos)
+                pygame.display.flip()
+                pygame.time.wait(2000)
+                screen.fill(WHITE)
+
+                screen.blit(screenimage, (0, 0))
+                screen.blit(character1image, character1imagepos)
+                screen.blit(character2image, character2imagepos)
+                screen.blit(enemyhealth, enemyhealthrect)
+                screen.blit(character1health, character1healthrect)
+                screen.blit(blitmove2, blitmovepos2)
+                hit.play(0)
+                screen.blit(character1nameplate, character1nameplatepos)
+                screen.blit(character2nameplate, character2nameplatepos)
+                screen.blit(character1level, character1levelpos)
+                screen.blit(character2level, character2levelpos)
+                pygame.display.flip()
+                pygame.time.wait(2000)
+            elif pygame.mouse.get_pressed()[0] == 1 and mousepos[0] > move3textpos.x and mousepos[
+                0] < move3textpos.x + move3textpos.width and mousepos[1] > move3textpos.y and mousepos[
+                1] < move3textpos.y + move3textpos.height:
+                p2damage = character1.move_3()
+                blitname1 = smallfont.render(character1.name + " used " + character1.move3name, 1, BLACK)
+                p1go = True
+                p2d = p2damage * 150 * .01
+                blitmove1 = smallfont.render(("It did " + str(p2damage) + " damage"), 1, BLACK)
+
+                if character2move == 1:
+                    p1damage = character2.move_1()
+                    p1d = p1damage * 150 * .01
+                    blitmove2 = smallfont.render(("It did " + str(p1damage) + " damage"), 1, BLACK)
+                    blitname2 = smallfont.render(character2.name + " used " + character2.move1name, 1, BLACK)
+                    p2go = True
+
+                if character2move == 2:
+                    p1damage = character2.move_2()
+                    p1d = p1damage * 150 * .01
+                    blitmove2 = smallfont.render(("It did " + str(p1damage) + " damage"), 1, BLACK)
+                    blitname2 = smallfont.render(character2.name + " used " + character2.move2name, 1, BLACK)
+                    p2go = True
+
+                if character2move == 3:
+                    p1damage = character2.move_3()
+                    p1d = p1damage * 150 * .01
+                    blitmove2 = smallfont.render(("It did " + str(p1damage) + " damage"), 1, BLACK)
+                    blitname2 = smallfont.render(character2.name + " used " + character2.move3name, 1, BLACK)
+                    p2go = True
+
+                if character2move == 4:
+                    p1damage = character2.move_4()
+                    p1d = p1damage * 150 * .01
+                    blitmove2 = smallfont.render(("It did " + str(p1damage) + " damage"), 1, BLACK)
+                    blitname2 = smallfont.render(character2.name + " used " + character2.move4name, 1, BLACK)
+                    p2go = True
+                screen.fill(WHITE)
+                screen.blit(screenimage, (0, 0))
+                screen.blit(character1image, character1imagepos)
+                screen.blit(character2image, character2imagepos)
+                screen.blit(enemyhealth, enemyhealthrect)
+                screen.blit(character1health, character1healthrect)
+                screen.blit(blitname1, blitnamepos1)
+                screen.blit(character1nameplate, character1nameplatepos)
+                screen.blit(character2nameplate, character2nameplatepos)
+                screen.blit(character1level, character1levelpos)
+                screen.blit(character2level, character2levelpos)
+                pygame.display.flip()
+                pygame.time.wait(2000)
+                screen.fill(WHITE)
+                screen.blit(screenimage, (0, 0))
+                screen.blit(character1image, character1imagepos)
+                screen.blit(character2image, character2imagepos)
+                screen.blit(enemyhealth, enemyhealthrect)
+                screen.blit(character1health, character1healthrect)
+                screen.blit(blitmove1, blitmovepos1)
+                hit.play(0)
+                screen.blit(character1nameplate, character1nameplatepos)
+                screen.blit(character2nameplate, character2nameplatepos)
+                screen.blit(character1level, character1levelpos)
+                screen.blit(character2level, character2levelpos)
+                pygame.display.flip()
+                pygame.time.wait(2000)
+                # player 2 blits
+                screen.fill(WHITE)
+
+                screen.blit(screenimage, (0, 0))
+                screen.blit(character1image, character1imagepos)
+                screen.blit(character2image, character2imagepos)
+                screen.blit(blitname2, blitnamepos2)
+                screen.blit(enemyhealth, enemyhealthrect)
+                screen.blit(character1health, character1healthrect)
+                screen.blit(character1nameplate, character1nameplatepos)
+                screen.blit(character2nameplate, character2nameplatepos)
+                screen.blit(character1level, character1levelpos)
+                screen.blit(character2level, character2levelpos)
+                pygame.display.flip()
+                pygame.time.wait(2000)
+                screen.fill(WHITE)
+
+                screen.blit(screenimage, (0, 0))
+                screen.blit(character1image, character1imagepos)
+                screen.blit(character2image, character2imagepos)
+                screen.blit(enemyhealth, enemyhealthrect)
+                screen.blit(character1health, character1healthrect)
+                screen.blit(blitmove2, blitmovepos2)
+                hit.play(0)
+                screen.blit(character1nameplate, character1nameplatepos)
+                screen.blit(character2nameplate, character2nameplatepos)
+                screen.blit(character1level, character1levelpos)
+                screen.blit(character2level, character2levelpos)
+                pygame.display.flip()
+                pygame.time.wait(2000)
+            elif pygame.mouse.get_pressed()[0] == 1 and mousepos[0] > move4textpos.x and mousepos[
+                0] < move4textpos.x + move4textpos.width and mousepos[1] > move4textpos.y and mousepos[
+                1] < move4textpos.y + move4textpos.height:
+                p2damage = character1.move_4()
+                blitname1 = smallfont.render(character1.name + " used " + character1.move4name, 1, BLACK)
+                p1go = True
+                p2d = p2damage * 150 * .01
+                blitmove1 = smallfont.render(("It did " + str(p2damage) + " damage"), 1, BLACK)
+
+                if character2move == 1:
+                    p1damage = character2.move_1()
+                    p1d = p1damage * 150 * .01
+                    blitmove2 = smallfont.render(("It did " + str(p1damage) + " damage"), 1, BLACK)
+                    blitname2 = smallfont.render(character2.name + " used " + character2.move1name, 1, BLACK)
+                    p2go = True
+
+                if character2move == 2:
+                    p1damage = character2.move_2()
+                    p1d = p1damage * 150 * .01
+                    blitmove2 = smallfont.render(("It did " + str(p1damage) + " damage"), 1, BLACK)
+                    blitname2 = smallfont.render(character2.name + " used " + character2.move2name, 1, BLACK)
+                    p2go = True
+
+                if character2move == 3:
+                    p1damage = character2.move_3()
+                    p1d = p1damage * 150 * .01
+                    blitmove2 = smallfont.render(("It did " + str(p1damage) + " damage"), 1, BLACK)
+                    blitname2 = smallfont.render(character2.name + " used " + character2.move3name, 1, BLACK)
+                    p2go = True
+
+                if character2move == 4:
+                    p1damage = character2.move_4()
+                    p1d = p1damage * 150 * .01
+                    blitmove2 = smallfont.render(("It did " + str(p1damage) + " damage"), 1, BLACK)
+                    blitname2 = smallfont.render(character2.name + " used " + character2.move4name, 1, BLACK)
+                    p2go = True
+
+                # Blit everything
+                # player 1 blits
+                screen.fill(WHITE)
+                screen.blit(screenimage, (0, 0))
+                screen.blit(character1image, character1imagepos)
+                screen.blit(character2image, character2imagepos)
+                screen.blit(enemyhealth, enemyhealthrect)
+                screen.blit(character1health, character1healthrect)
+                screen.blit(blitname1, blitnamepos1)
+                screen.blit(character1nameplate, character1nameplatepos)
+                screen.blit(character2nameplate, character2nameplatepos)
+                screen.blit(character1level, character1levelpos)
+                screen.blit(character2level, character2levelpos)
+                pygame.display.flip()
+                pygame.time.wait(2000)
+                screen.fill(WHITE)
+                screen.blit(screenimage, (0, 0))
+                screen.blit(character1image, character1imagepos)
+                screen.blit(character2image, character2imagepos)
+                screen.blit(enemyhealth, enemyhealthrect)
+                screen.blit(character1health, character1healthrect)
+                screen.blit(blitmove1, blitmovepos1)
+                hit.play(0)
+                screen.blit(character1nameplate, character1nameplatepos)
+                screen.blit(character2nameplate, character2nameplatepos)
+                screen.blit(character1level, character1levelpos)
+                screen.blit(character2level, character2levelpos)
+                pygame.display.flip()
+                pygame.time.wait(2000)
+                # player 2 blits
+                screen.fill(WHITE)
+
+                screen.blit(screenimage, (0, 0))
+                screen.blit(character1image, character1imagepos)
+                screen.blit(character2image, character2imagepos)
+                screen.blit(character1nameplate, character1nameplatepos)
+                screen.blit(character2nameplate, character2nameplatepos)
+                screen.blit(character1level, character1levelpos)
+                screen.blit(character2level, character2levelpos)
+                screen.blit(blitname2, blitnamepos2)
+                screen.blit(enemyhealth, enemyhealthrect)
+                screen.blit(character1health, character1healthrect)
+                pygame.display.flip()
+                pygame.time.wait(2000)
+                screen.fill(WHITE)
+
+                screen.blit(screenimage, (0, 0))
+                screen.blit(character1image, character1imagepos)
+                screen.blit(character2image, character2imagepos)
+                screen.blit(character1nameplate, character1nameplatepos)
+                screen.blit(character2nameplate, character2nameplatepos)
+                screen.blit(character1level, character1levelpos)
+                screen.blit(character2level, character2levelpos)
+                screen.blit(enemyhealth, enemyhealthrect)
+                screen.blit(character1health, character1healthrect)
+                screen.blit(blitmove2, blitmovepos2)
+                hit.play(0)
+                pygame.display.flip()
+                pygame.time.wait(2000)
+
+            else:
+                screen.blit(move1text, move1textpos)
+                screen.blit(move2text, move2textpos)
+                screen.blit(move3text, move3textpos)
+                screen.blit(move4text, move4textpos)
+
+        if p1go:
+            character2healthamount -= p2d
+        if p2go:
+            character1healthamount -= p1d
+        if character1healthamount > 150:
+            character1healthamount = 150
+        if character2healthamount > 150:
+            character2healthamount = 150
+        if character1healthamount < 1:
+            screen.fill(WHITE)
+            pygame.event.get()
+            screen.blit(screenimage, (0, 0))
+            screen.blit(character2image, character2imagepos)
+            screen.blit(character1nameplate, character1nameplatepos)
+            screen.blit(character2nameplate, character2nameplatepos)
+            screen.blit(character1level, character1levelpos)
+            screen.blit(character2level, character2levelpos)
+            screen.blit(enemyhealth, enemyhealthrect)
+            screen.blit(lose, losepos)
+            pygame.display.flip()
+            pygame.time.wait(5000)
+            music_battle.stop()
+            return
+
+        if character2healthamount < 1:
+            screen.fill(WHITE)
+            screen.blit(screenimage, (0, 0))
+            screen.blit(character1image, character1imagepos)
+            screen.blit(character1nameplate, character1nameplatepos)
+            screen.blit(character2nameplate, character2nameplatepos)
+            screen.blit(character1level, character1levelpos)
+            screen.blit(character2level, character2levelpos)
+            screen.blit(character1health, character1healthrect)
+            screen.blit(win, winpos)
+            pygame.display.flip()
+            pygame.time.wait(5000)
+            music_battle.stop()
+            return
+        else:
+            character1health = pygame.Surface((int(character1healthamount), 16))
+            # character1healthrect = character1health.get_rect()
+            character1health.fill(RED)
+            enemyhealth = pygame.Surface((int(character2healthamount), 16))
+            # enemyhealthrect = enemyhealth.get_rect()
+            enemyhealth.fill(RED)
+        screen.blit(character1image, character1imagepos)
+        screen.blit(character2image, character2imagepos)
+        screen.blit(character1nameplate, character1nameplatepos)
+        screen.blit(character2nameplate, character2nameplatepos)
+        screen.blit(character1level, character1levelpos)
+        screen.blit(character2level, character2levelpos)
+        screen.blit(enemyhealth, enemyhealthrect)
+        screen.blit(character1health, character1healthrect)
+        p1go = False
+        p2go = False
+
+        clock.tick(fps)
+
+        # Writes to surface
+        pygame.display.flip()
+
+def main():
+    # variables
+    global character_select
+    pygame.display.set_caption("Pokemon Fire Red")
+    screen = pygame.display.set_mode((WIN_W, WIN_H), pygame.SRCALPHA)
+    hero = Hero()
+    intro = play = character_select = True
+    font = pygame.font.Font(None, 50)
+
+    map = [
+        "PPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPP",
+        "P   TTTT    1   FTTTTTTTTTTTTTTP",
+        "P   TTTTF         TTTTTTTTTTTTTP",
+        "PF  TTTT         TTTTTTTTTTTTTTP",
+        "PRRRRRRRRRRRR        TTTTTTTTTTP",
+        "P           RR     TTTTTTTTTTTTP",
+        "P            RR4           F   P",
+        "PQUUUUUUUUUUUZR                P",
+        "PXWWWWWWWWWWWKR                P",
+        "PXWWWWWWWWWWWKR                P",
+        "PXWWWWWWWWWWWKR               5P",
+        "PXWWWWWWWWWWWKRTTTTTTTTT       P",
+        "PXWWWWWWWWWWWKRF  TTTTTT      FP",
+        "PXWWWWWWWWWWWKR    TTTTTTTTTTTTP",
+        "PXWWWWWWWWWWWKR    TTTTTTTTTTTTP",
+        "PXWWWWWWWWWWWKR TTTTTTTTTTTTTTTP",
+        "PEBBBBBBBBBBBYRTTTTTTTTTTTTTTTTP",
+        "P              TTTTTTTTTTTTTTTTP",
+        "P                             FP",
+        "P    F                         P",
+        "P                             2P",
+        "P          TTTTTTTT            P",
+        "P3        FTTTTTTTTTTTTTTT     P",
+        "PPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPP", ]
+
+    platform_group = pygame.sprite.Group()
+    background_group = pygame.sprite.Group()
+    grass_group = pygame.sprite.Group()
+
+    x = y = 0
+    for row in map:
+        for col in row:
+            if col == "P":
+                p = Platform(x, y, col)
+                platform_group.add(p)
+            if col == "R":
+                r = Platform(x, y, col)
+                platform_group.add(r)
+            if col == "W":
+                l = Platform(x, y, col)
+                platform_group.add(l)
+            if col == "T":
+                g = Platform(x, y, col)
+                grass_group.add(g)
+            if col == "Q":
+                a = Platform(x, y, col)
+                platform_group.add(a)
+            if col == "Z":
+                f = Platform(x, y, col)
+                platform_group.add(f)
+            if col == "E":
+                o = Platform(x, y, col)
+                platform_group.add(o)
+            if col == "Y":
+                m = Platform(x, y, col)
+                platform_group.add(m)
+            if col == "U":
+                v = Platform(x, y, col)
+                platform_group.add(v)
+            if col == "K":
+                q = Platform(x, y, col)
+                platform_group.add(q)
+            if col == "X":
+                w = Platform(x, y, col)
+                platform_group.add(w)
+            if col == "B":
+                e = Platform(x, y, col)
+                platform_group.add(e)
+            if col == "1":
+                trainer = Platform(x, y, col)
+                platform_group.add(trainer)
+            if col == "2":
+                trainer2 = Platform(x, y, col)
+                platform_group.add(trainer2)
+            if col == "3":
+                trainer3 = Platform(x, y, col)
+                platform_group.add(trainer3)
+            if col == "4":
+                trainer4 = Platform(x, y, col)
+                platform_group.add(trainer4)
+            if col == "5":
+                trainer5 = Platform(x, y, col)
+                platform_group.add(trainer5)
+            if col == " ":
+                b = Platform(x, y, col)
+                background_group.add(b)
+            if col == "F":
+                h = Platform(x, y, col)
+                background_group.add(h)
+
+            x += 32
+        y += 32
+        x = 0
+    total_width = len(map[0]) * 32
+    total_height = len(map) * 32
+    camera = Camera(total_width, total_height)
+    pygame.init()
+    clock = pygame.time.Clock()
+    fps = 60
+    music_intro = pygame.mixer.Sound("music/intro.ogg.ogg")
+    music_intro.set_volume(.5)
+    music_intro.play(-1)
+    music_game = pygame.mixer.Sound("music/game.ogg.ogg")
+    music_game.set_volume(.01)
+
+    while intro:
+        pygame.display.set_caption("Pokemon Fire Red")
+        images = []
+
+        for image in os.listdir("images"):
+            images.append(pygame.image.load("images/" + image))
+
+        index = 0
+        image = images[index]
+
+        CHANGE_IMAGE_EVENT = pygame.USEREVENT + 1
+        pygame.time.set_timer(CHANGE_IMAGE_EVENT, 45)
+
+        done = False
+        while not done:
+            for event in pygame.event.get():
+                if event.type == pygame.MOUSEBUTTONDOWN or pygame.key.get_pressed()[pygame.K_RETURN] != 0:
+                    done = True
+                elif event.type == CHANGE_IMAGE_EVENT:
+
+                    index += 1
+                    index %= len(images)
+                    image = images[index]
+
+            screen.blit(image, (0, 0))
+            pygame.display.flip()
+            clock.tick(30)
+
+        if done:
+            music_intro.stop()
+            play = True
+            intro = False
+            music_game.play(-1)
+
+    pygame.time.wait(500)
+    picktext = font.render("Pick Your Pokemon", 1, BLACK)
+    picktextpos = picktext.get_rect()
+    picktextpos.centerx = int(WIN_W / 2)
+    # picktextpos.y = WIN_H/7
+
+    snorlaxtext = font.render("Snorlax", 1, BLACK)
+    snorlaxtextpos = snorlaxtext.get_rect()
+    snorlaxtextpos.centerx = int(WIN_W / 4)
+    snorlaxtextpos.y = int(WIN_H / 7)
+
+    arcaninetext = font.render("Arcanine", 1, BLACK)
+    arcaninetextpos = arcaninetext.get_rect()
+    arcaninetextpos.centerx = int(WIN_W / 4)
+    arcaninetextpos.y = int(WIN_H / 7 + WIN_H / 7)
+
+    gyaradostext = font.render("Gyarados", 1, BLACK)
+    gyaradostextpos = gyaradostext.get_rect()
+    gyaradostextpos.centerx = int(WIN_W / 4)
+    gyaradostextpos.y = int(WIN_H / 7 + WIN_H / 7 + WIN_H / 7)
+
+    exeggutortext = font.render("Exeggutor", 1, BLACK)
+    exeggutortextpos = exeggutortext.get_rect()
+    exeggutortextpos.centerx = int(WIN_W / 4)
+    exeggutortextpos.y = int(WIN_H / 7 + WIN_H / 7 + WIN_H / 7 + WIN_H / 7)
+
+    tyranitartext = font.render("Tyranitar", 1, BLACK)
+    tyranitartextpos = tyranitartext.get_rect()
+    tyranitartextpos.centerx = int(WIN_W / 4)
+    tyranitartextpos.y = int(WIN_H / 7 + WIN_H / 7 + WIN_H / 7 + WIN_H / 7 + WIN_H / 7)
+
+    alakazamtext = font.render("Alakazam", 1, BLACK)
+    alakazamtextpos = alakazamtext.get_rect()
+    alakazamtextpos.centerx = int(WIN_W / 4)
+    alakazamtextpos.y = int(WIN_H / 7 + WIN_H / 7 + WIN_H / 7 + WIN_H / 7 + WIN_H / 7 + WIN_H / 7)
+
+    heracrosstext = font.render("Heracross", 1, BLACK)
+    heracrosstextpos = heracrosstext.get_rect()
+    heracrosstextpos.centerx = int(WIN_W / 2 + WIN_W / 4)
+    heracrosstextpos.y = int(WIN_H / 7)
+
+    pikachutext = font.render("Pikachu", 1, BLACK)
+    pikachutextpos = pikachutext.get_rect()
+    pikachutextpos.centerx = int(WIN_W / 2 + WIN_W / 4)
+    pikachutextpos.y = int(WIN_H / 7 + WIN_H / 7)
+
+    laprastext = font.render("Lapras", 1, BLACK)
+    laprastextpos = laprastext.get_rect()
+    laprastextpos.centerx = int(WIN_W / 2 + WIN_W / 4)
+    laprastextpos.y = int(WIN_H / 7 + WIN_H / 7 + WIN_H / 7)
+
+    blastoisetext = font.render("Blastoise", 1, BLACK)
+    blastoisetextpos = blastoisetext.get_rect()
+    blastoisetextpos.centerx = int(WIN_W / 2 + WIN_W / 4)
+    blastoisetextpos.y = int(WIN_H / 7 + WIN_H / 7 + WIN_H / 7 + WIN_H / 7)
+
+    charizardtext = font.render("Charizard", 1, BLACK)
+    charizardtextpos = charizardtext.get_rect()
+    charizardtextpos.centerx = int(WIN_W / 2 + WIN_W / 4)
+    charizardtextpos.y = int(WIN_H / 7 + WIN_H / 7 + WIN_H / 7 + WIN_H / 7 + WIN_H / 7)
+
+    venusaurtext = font.render("Venusaur", 1, BLACK)
+    venusaurtextpos = venusaurtext.get_rect()
+    venusaurtextpos.centerx = int(WIN_W / 2 + WIN_W / 4)
+    venusaurtextpos.y = int(WIN_H / 7 + WIN_H / 7 + WIN_H / 7 + WIN_H / 7 + WIN_H / 7 + WIN_H / 7)
+    mousepos = pygame.mouse.get_pos()
+
+    while character_select:
+        mousepos = pygame.mouse.get_pos()
+        screen.fill(WHITE)
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:  sys.exit()
+        screen.blit(picktext, picktextpos)
+        screen.blit(snorlaxtext, snorlaxtextpos)
+        screen.blit(arcaninetext, arcaninetextpos)
+        screen.blit(gyaradostext, gyaradostextpos)
+        screen.blit(exeggutortext, exeggutortextpos)
+        screen.blit(tyranitartext, tyranitartextpos)
+        screen.blit(heracrosstext, heracrosstextpos)
+        screen.blit(alakazamtext, alakazamtextpos)
+        screen.blit(pikachutext, pikachutextpos)
+        screen.blit(laprastext, laprastextpos)
+        screen.blit(blastoisetext, blastoisetextpos)
+        screen.blit(charizardtext, charizardtextpos)
+        screen.blit(venusaurtext, venusaurtextpos)
+        # get Clicking to work on the people
+        mousepos = pygame.mouse.get_pos()
+        if pygame.mouse.get_pressed()[0] == 1 and mousepos[0] > snorlaxtextpos.x and mousepos[
+            0] < snorlaxtextpos.x + snorlaxtextpos.width and mousepos[1] > snorlaxtextpos.y and mousepos[
+            1] < snorlaxtextpos.y + snorlaxtextpos.height:
+            character_select = False
+            character1 = Snorlax()
+        if pygame.mouse.get_pressed()[0] == 1 and mousepos[0] > arcaninetextpos.x and mousepos[
+            0] < arcaninetextpos.x + arcaninetextpos.width and mousepos[1] > arcaninetextpos.y and mousepos[
+            1] < arcaninetextpos.y + arcaninetextpos.height:
+            character_select = False
+            character1 = Arcanine()
+        if pygame.mouse.get_pressed()[0] == 1 and mousepos[0] > gyaradostextpos.x and mousepos[
+            0] < gyaradostextpos.x + gyaradostextpos.width and mousepos[1] > gyaradostextpos.y and mousepos[
+            1] < gyaradostextpos.y + gyaradostextpos.height:
+            character_select = False
+            character1 = Gyarados()
+        if pygame.mouse.get_pressed()[0] == 1 and mousepos[0] > exeggutortextpos.x and mousepos[
+            0] < exeggutortextpos.x + exeggutortextpos.width and mousepos[1] > exeggutortextpos.y and mousepos[
+            1] < exeggutortextpos.y + exeggutortextpos.height:
+            character_select = False
+            character1 = Exeggutor()
+        if pygame.mouse.get_pressed()[0] == 1 and mousepos[0] > tyranitartextpos.x and mousepos[
+            0] < tyranitartextpos.x + tyranitartextpos.width and mousepos[1] > tyranitartextpos.y and mousepos[
+            1] < tyranitartextpos.y + tyranitartextpos.height:
+            character_select = False
+            character1 = Tyranitar()
+        if pygame.mouse.get_pressed()[0] == 1 and mousepos[0] > alakazamtextpos.x and mousepos[
+            0] < alakazamtextpos.x + alakazamtextpos.width and mousepos[1] > alakazamtextpos.y and mousepos[
+            1] < alakazamtextpos.y + alakazamtextpos.height:
+            character_select = False
+            character1 = Alakazam()
+        if pygame.mouse.get_pressed()[0] == 1 and mousepos[0] > heracrosstextpos.x and mousepos[
+            0] < heracrosstextpos.x + heracrosstextpos.width and mousepos[1] > heracrosstextpos.y and mousepos[
+            1] < heracrosstextpos.y + heracrosstextpos.height:
+            character_select = False
+            character1 = Heracross()
+        if pygame.mouse.get_pressed()[0] == 1 and mousepos[0] > pikachutextpos.x and mousepos[
+            0] < pikachutextpos.x + pikachutextpos.width and mousepos[1] > pikachutextpos.y and mousepos[
+            1] < pikachutextpos.y + pikachutextpos.height:
+            character_select = False
+            character1 = Pikachu()
+        if pygame.mouse.get_pressed()[0] == 1 and mousepos[0] > laprastextpos.x and mousepos[
+            0] < laprastextpos.x + laprastextpos.width and mousepos[1] > laprastextpos.y and mousepos[
+            1] < laprastextpos.y + laprastextpos.height:
+            character_select = False
+            character1 = Lapras()
+        if pygame.mouse.get_pressed()[0] == 1 and mousepos[0] > blastoisetextpos.x and mousepos[
+            0] < blastoisetextpos.x + blastoisetextpos.width and mousepos[1] > blastoisetextpos.y and mousepos[
+            1] < blastoisetextpos.y + blastoisetextpos.height:
+            character_select = False
+            character1 = Blastoise()
+        if pygame.mouse.get_pressed()[0] == 1 and mousepos[0] > charizardtextpos.x and mousepos[
+            0] < charizardtextpos.x + charizardtextpos.width and mousepos[1] > charizardtextpos.y and mousepos[
+            1] < charizardtextpos.y + charizardtextpos.height:
+            character_select = False
+            character1 = Charizard()
+        if pygame.mouse.get_pressed()[0] == 1 and mousepos[0] > venusaurtextpos.x and mousepos[
+            0] < venusaurtextpos.x + venusaurtextpos.width and mousepos[1] > venusaurtextpos.y and mousepos[
+            1] < venusaurtextpos.y + venusaurtextpos.height:
+            character_select = False
+            character1 = Venusaur()
+            #  if pygame.mouse.get_pressed()[0] == 1 and mousepos[0] > textpos.x and mousepos[0] < textpos.x + textpos.width and mousepos[1] > textpos.y and mousepos[1] < textpos.y + textpos.height:
+            #     character_select = False
+
+        # Set the player to whoever choses on monday
+        pygame.init()
+        clock.tick(fps)
+        pygame.display.flip()
+    while play:
+        pygame.display.set_caption("Pokemon Fire Red")
+        # Checks if window exit button pressed
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                sys.exit()
+            elif event.type == pygame.KEYDOWN:
+                if event.key == pygame.K_ESCAPE:
+                    pygame.quit()
+                    sys.exit()
+
+        # Update
+        hero.update(platform_group, character1)
+        camera.update(hero.rect)
+
+        # Blits
+        for p in platform_group:
+            screen.blit(p.image, camera.apply(p))
+        for b in background_group:
+            screen.blit(b.image, camera.apply(b))
+        for g in grass_group:
+            screen.blit(g.image, camera.apply(g))
+        screen.blit(hero.image, camera.apply(hero))
+
+        # Limits FPS
+        clock.tick(fps)
+        # Writes to surface
+        pygame.display.flip()
+
+
+main()
